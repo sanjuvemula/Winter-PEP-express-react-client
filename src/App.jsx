@@ -19,6 +19,26 @@ function App() {
   // We need to take out userDetails since we're interested in userDetails object
   const userDetails = useSelector((state)=>state.userDetails)
   const [loading, setLoading] = useState(false);
+  const isUserLoggedIn = async () =>{
+    try{
+      const response = await axios.post(`${serverEndPoint}/auth/isUserLoggedIn`,
+        {},
+        {withCredentials:true}
+      );
+
+      //setUserDetails(response.data.user);
+      dispatchEvent({
+        type:SET_USER,
+        payload:response.data.user;
+      });
+    }
+    catch(err){
+      console.log(err);
+    }
+    finally{
+      setLoading(false);
+    }
+  }
   useEffect(() => {
     const checkLogin = async () => {
       try {
