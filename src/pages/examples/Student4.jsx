@@ -2,7 +2,6 @@ import { useState } from "react";
 
 function Student4(){
     const [visible, setVisible] = useState(true);
-    const [button, setButoon] = useState("hide Students");
 
     const studentList = [
         {name:'Tommy', Rollnumber: 1},
@@ -11,19 +10,7 @@ function Student4(){
     ];
 
     const handleClick = () => {
-        // setVisible(!visible);
-
-        // if(visible){
-        //     setButoon("show Students");
-        // }
-        // else{
-        //     setButoon("Hide Students");
-        // }
-
-        setVisible(()=>{
-            setButoon(!visible?'hide Students':'show students');
-            return !visible;
-        })
+        setVisible(!visible);
     }
 
     return(
@@ -33,7 +20,7 @@ function Student4(){
                 Show live alert
             </button>
 
-            <button onClick={handleClick}>{button}</button>
+            <button onClick={handleClick}>{visible?"Hide Students":"Show Students"}</button>
             {visible && (
                 <>
                     {studentList.map((s)=>(

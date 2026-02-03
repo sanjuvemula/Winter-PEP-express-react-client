@@ -1,0 +1,1 @@
+export const serverEndPoint = import.meta.env.VITE_SERVER_ENDPOINT;
