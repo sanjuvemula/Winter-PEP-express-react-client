@@ -1,7 +1,7 @@
 function Footer(){
     return(
         <div className="container">
-            This is footer.
+            All rights reserved.
         </div>
     )
 }

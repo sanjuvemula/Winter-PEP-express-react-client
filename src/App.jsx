@@ -10,15 +10,16 @@ import UserLayout from "./components/userLayout";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 import { serverEndPoint } from "./config/appconfig";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
   // Value of userDetails represents whether the use is logged in or not
   // useSelector takes in 1 function as input. Redux calls the function that you pass to useSelector
   // with all the values its storing/managing.
   // We need to take out userDetails since we're interested in userDetails object
   const userDetails = useSelector((state)=>state.userDetails)
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const isUserLoggedIn = async () =>{
     try{
       const response = await axios.post(`${serverEndPoint}/auth/isUserLoggedIn`,
@@ -29,7 +30,7 @@ function App() {
       //setUserDetails(response.data.user);
       dispatchEvent({
         type:SET_USER,
-        payload:response.data.user;
+        payload:response.data.user
       });
     }
     catch(err){
@@ -38,26 +39,10 @@ function App() {
     finally{
       setLoading(false);
     }
-  }
-  useEffect(() => {
-    const checkLogin = async () => {
-      try {
-        const response = await axios.post(
-          `${serverEndPoint}/auth/isUserLoggedIn`,
-          {},
-          {
-            withCredentials: true
-          }
-        );
-
-        setUserDetails(response.data.user);
-      } catch (err) {
-        setUserDetails(null);
-      }
-    };
-
-    checkLogin();
-  }, []);
+  };
+  useEffect(()=>{
+    isUserLoggedIn();
+  },[]);
 
 
   return (
@@ -84,7 +69,7 @@ function App() {
           </AppLayout>
         ) : (
           <AppLayout>
-            <Register setUser={setUserDetails} />
+            <Register/>
           </AppLayout>
         )
         }
@@ -92,12 +77,10 @@ function App() {
       <Route
         path='/login'
         element={userDetails ? (
-          <UserLayout user={userDetails}>
             <Navigate to='/dashboard' />
-          </UserLayout>
         ) : (
           <AppLayout>
-            <Login setUser={setUserDetails} />
+            <Login/>
           </AppLayout>
         )
         }
@@ -106,8 +89,8 @@ function App() {
         path="/dashboard"
         element={
           userDetails ? (
-            <UserLayout user={userDetails}>
-              <Dashboard user={userDetails} />
+            <UserLayout>
+              <Dashboard/>
             </UserLayout>
           ) : (
             <AppLayout>
@@ -119,9 +102,9 @@ function App() {
           path='/logout'
           element={
             userDetails?(
-              <UserLayout user={userDetails}>
-                <Logout setUser={setUserDetails}/>
-              </UserLayout>
+              // <UserLayout>
+                <Logout/>
+              // </UserLayout>
             ):(
               <AppLayout>
                 <Navigate to='/login'/>

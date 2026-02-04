@@ -1,8 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { serverEndPoint } from "../config/appconfig";
-
-function Register({ setUser }) {
+import { useDispatch } from "react-redux";
+function Register() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -58,7 +58,10 @@ function Register({ setUser }) {
                     body
                 );
 
-                setUser(response.data.user);
+                dispatch({
+                    type:SET_USER,
+                    payload: response.data.user
+                })
 
             } catch (err) {
                 if (err.response?.data?.errors) {

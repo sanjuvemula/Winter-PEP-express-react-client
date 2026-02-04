@@ -2,19 +2,19 @@ import { Link } from "react-router-dom";
 
 function Header(){
     return(
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary border-bottom border-body">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">
                     ExpenseApp
                 </Link>
                 <button
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
                     className="navbar-toggler"
+                    type="button"
                     data-bs-target="#navbarSupportedContent"
                     data-bs-toggle="collapse"
-                    type="button"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"       
                 >
                     <span className="navbar-toggler-icon"/>
                 </button>
@@ -22,7 +22,7 @@ function Header(){
                     className="collapse navbar-collapse"
                     id="navbarSupportedContent"
                 >
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li className="nav-item">
                             <Link
                                 aria-current="page"

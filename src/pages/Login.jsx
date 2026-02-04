@@ -2,8 +2,11 @@ import { useState } from "react";
 import axios from 'axios';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { serverEndPoint } from "../config/appconfig";
+import { useDispatch } from "react-redux";
+import { SET_USER } from "./redux/user/action";
 
-function Login({ setUser }) {
+function Login() {
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -49,7 +52,11 @@ function Login({ setUser }) {
                 }
             );
 
-            setUser(res.data.user);
+            // setUser(res.data.user);
+            dispatch({
+                type:SET_USER,
+                payload:res.data.user
+            })
         }
         catch (err) {
             console.log(err);
@@ -81,7 +88,10 @@ function Login({ setUser }) {
                 const config = { withCredentials: true };
                 const response = await axios.post(`${serverEndPoint}/auth/login`, body, config);
 
-                setUser(response.data.user);
+                dispatch({
+                    type:SET_USER,
+                    payload:response.data.user
+                })
             }
             catch (err) {
                 console.log(err);

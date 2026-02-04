@@ -1,37 +1,31 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-function UserHeader({user}){
+function UserHeader(){
+    const user = useSelector((state)=>state.userDetails);
     return(
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
-            <div className="container-fluid">
+        <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body" 
+            data-bs-theme="dark">
+            <div className="container">
                 <Link className="navbar-brand" to="/">
-                    ExpenseApp
+                    Dashboard
                 </Link>
                 <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent"
                     aria-expanded="false"
                     aria-label="Toggle navigation"
-                    className="navbar-toggler"
-                    data-bs-target="#navbarSupportedContent"
-                    data-bs-toggle="collapse"
-                    type="button"
                 >
                     <span className="navbar-toggler-icon"/>
                 </button>
                 <div
                     className="collapse navbar-collapse"
                     id="navbarSupportedContent"
-                >
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link
-                                aria-current="page"
-                                className="nav-link active"
-                                to="/dashboard"
-                            >
-                                Dashboard
-                            </Link>
-                        </li>
+                >   <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        {/* Add other nav links here if needed */}
                     </ul>
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li className="nav-item dropdown">
@@ -45,7 +39,9 @@ function UserHeader({user}){
                             </Link>
                             <ul className="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <Link className="nav-link" to='/logout'>
+                                    <Link className="dropdown-item" 
+                                        to='/logout'
+                                    >
                                          Logout
                                     </Link>
                                 </li>
@@ -59,3 +55,4 @@ function UserHeader({user}){
 }
 
 export default UserHeader;
+
